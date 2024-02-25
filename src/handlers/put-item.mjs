@@ -28,7 +28,7 @@ export const putItemHandler = async (event) => {
     const autor = body.autor;
     const genero = body.genero;
     const tipo = body.tipo;
-    const precio = body.precio;
+
 
 
     let controlPrecio;
