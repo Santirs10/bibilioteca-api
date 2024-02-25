@@ -21,14 +21,46 @@ export const putItemHandler = async (event) => {
 
     // Get id and name from the body of the request
     const body = JSON.parse(event.body);
-    const id = body.id;
-    const name = body.name;
+    const aleatorio = Math.floor(Math.random() * 100000);
+    const titulo = body.titulo;
+    const año = body.año;
+    const edicion = body.edicion;
+    const autor = body.autor;
+    const genero = body.genero;
+    const tipo = body.tipo;
+    const precio = body.precio;
+
+
+    let controlPrecio;
+    switch (tipo){
+        case "TapaBlanda":
+            precio="14,95 €";
+            break;
+        case "TapaDura":
+            precio="19,95 €";
+            break;
+        case "Bolsillo":
+            precio="12,50 €";
+            break;
+        case "Electronico":
+            precio="10,99€";
+            break;
+        default:
+            controlPrecio="Desconocido";
+    }
 
     // Creates a new item, or replaces an old item with a new item
     // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#put-property
+
+    if (titulo < 2) {
+        return {
+            statusCode: 403,
+            body: "El nombre introducido es muy corto"
+        }
+    }else{
     var params = {
         TableName : tableName,
-        Item: { id : id, name: name }
+        Item: { id : aleatorio.toString(), titulo : titulo, año : año, edicion : edicion, autor : autor, genero : genero, tipo : tipo, precio : precio }
     };
 
     try {
@@ -46,4 +78,5 @@ export const putItemHandler = async (event) => {
     // All log statements are written to CloudWatch
     console.info(`response from: ${event.path} statusCode: ${response.statusCode} body: ${response.body}`);
     return response;
+    }
 };
