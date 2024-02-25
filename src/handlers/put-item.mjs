@@ -31,7 +31,7 @@ export const putItemHandler = async (event) => {
 
 
 
-    let controlPrecio;
+    let precio;
     switch (tipo){
         case "TapaBlanda":
             precio="14,95 €";
@@ -46,7 +46,7 @@ export const putItemHandler = async (event) => {
             precio="10,99€";
             break;
         default:
-            controlPrecio="Desconocido";
+            precio="Desconocido";
     }
 
     // Creates a new item, or replaces an old item with a new item
